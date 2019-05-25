@@ -1,0 +1,17 @@
+{
+        "name": "aldaflux/youtube-utils-bundle",
+        "type": "symfony-bundle",
+        "description": "Symfony Bundle for youtube utils ",
+        "keywords": ["api", "youtube"],
+        "license": "GPL-3.0+",
+        "require": {
+            "php": ">=5.3.2",
+            "symfony/framework-bundle": ">=3.0",
+	    "twig/twig": "*",
+            "doctrine/doctrine-bundle": "*"
+        },
+        "autoload": {
+            "psr-4": { "Aldaflux\\YoutubeUtilsBundle\\": "" }
+        },
+        "minimum-stability": "dev"
+    }
