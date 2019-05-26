@@ -18,7 +18,10 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-		  
+		
+        $rootNode = $treeBuilder->root('youtube_utils');
+        $rootNode->children()->scalarNode( 'template' )->defaultValue('bootstrap4')->end();
+        $rootNode->children()->scalarNode( 'delete' )->defaultValue('false')->end();
                 
 
 
