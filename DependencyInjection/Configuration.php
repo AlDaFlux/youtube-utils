@@ -20,10 +20,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
 		
         $rootNode = $treeBuilder->root('youtube_utils');
-        $rootNode->children()->scalarNode( 'template' )->defaultValue('bootstrap4')->end();
-        $rootNode->children()->scalarNode( 'delete' )->defaultValue('false')->end();
-                
-
+        $rootNode->children()->scalarNode( 'youtube_api_key' )->end();
 
         return $treeBuilder;
     }
