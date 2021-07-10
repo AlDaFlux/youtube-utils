@@ -32,6 +32,7 @@ class RequestCollector extends DataCollector implements DataCollectorInterface
     {
          $this->data = [
             'logs' => $this->youtubeService->getLogs(), 
+            'errorlogs' => $this->youtubeService->getErrorLogs(),
             'method' => $request->getMethod(),
             'acceptable_content_types' => $request->getAcceptableContentTypes(),
         ];
@@ -60,6 +61,16 @@ class RequestCollector extends DataCollector implements DataCollectorInterface
      public function getNbLogs()
     {
         return count($this->data['logs']);
+    }
+    
+    public function getErrorLogs()
+    {
+        return $this->data['errorlogs'];
+    }
+
+     public function getNbErrorLogs()
+    {
+        return count($this->data['errorlogs']);
     }
 
     public function getAcceptableContentTypes()

@@ -5,14 +5,19 @@
 {% block toolbar %}
     {% set icon %}
   
-        {%  if collector.NbLogs %}
+        {%  if collector.NbErrorLogs %}
+            {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeError.html.twig') %}
+            <span class="sf-toolbar-value">{{ collector.NbErrorLogs }}</span>
+        {%  elseif collector.NbLogs %}
             {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeActive.html.twig') %}
+            <span class="sf-toolbar-value">{{ collector.NbLogs }}</span>
        {%  else %}
             {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeInActive.html.twig') %}
        {%  endif %}
         
-        <span class="sf-toolbar-value">{{ collector.NbLogs }}</span>
     {% endset %}
+    
+    
 
     {% set text %}
         {# this is the content displayed when hovering the mouse over
@@ -20,6 +25,10 @@
         <div class="sf-toolbar-info-piece">
             <b>Logs</b>
             <span>{{ collector.NbLogs }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Error Logs</b>
+            <span class="sf-toolbar-status sf-toolbar-status-red">{{ collector.NbErrorLogs }}</span>
         </div>
         
     {% endset %}
@@ -81,6 +90,26 @@
     
    
 
+      {%  if collector.NbLogs %} 
+                <table>
+          <thead>
+            <tr>
+                <th>type</th>
+                <th>Message</th> 
+            </tr>
+    </thead>
+    <tbody>
+ {% for log in collector.errorlogs %}
+                <tr class="">
+                   <td class="font-normal text-muted nowrap">{{log.code}}</td>
+                   <td class="font-normal text-muted nowrap">{{ log.message}}</td>
+                </tr>
+         {% endfor  %}
+        
+         </tbody>
+    </table>
+      {%  endif %} 
+          
 
 
       {%  if collector.NbLogs %} 

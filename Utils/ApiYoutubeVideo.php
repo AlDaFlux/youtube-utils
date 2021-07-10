@@ -52,6 +52,7 @@ class ApiYoutubeVideo
         $this->videoId = $videoId;
         
         $youtubeService->config("videos", "id=".$this->videoId."&fields=items(id,snippet,status,statistics)","snippet,status,statistics");
+        
         $videoJson=$youtubeService->GetOneItemJson();
         
         if ($videoJson)

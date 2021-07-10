@@ -172,7 +172,16 @@ class ServiceApiYoutube
                 $log["type"]=$this->TypeRecherche;
                 //$log["id"]=$this->if;
                 self::$logs[]=$log; 
-        
+                
+                
+                if (isset($result->error))
+                {
+                    self::$errorlogs[]=$result->error;
+                }
+                dump(self::$errorlogs);
+                
+                
+                
 		curl_close($curl);
 		return ($result);
 	}	
