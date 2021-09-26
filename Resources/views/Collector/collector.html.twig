@@ -144,7 +144,17 @@
           
           
       {%  endif %}
-                   
+                    
+      {%  if collector.NbErrorLogs %}
+            <div class='status-error'>
+        {% for log in collector.errorLogs %}
+            <li>{{ dump(log)}}</li>
+        {% endfor  %}
+            </div>
+      {%  endif %}
+  
+      
+              
 
 {% endblock %}
 

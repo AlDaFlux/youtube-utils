@@ -147,6 +147,25 @@ class ApiYoutubeVideo
         return($this->GetSnippet()->thumbnails->{$size}->url);
     }
     
+    public function GetMaxResAvailable()
+    {
+        if ($this->GetThumbnailMaxResExist())
+        {
+            return($this->GetThumbnail($size="maxres"));
+        }
+        else
+        {
+            return($this->GetThumbnail($size="high"));
+        }
+           
+    }
+    
+    public function GetThumbnailMaxResExist()
+    {
+        return(isset($this->GetSnippet()->thumbnails->maxres));
+    }
+    
+    
     
     
     

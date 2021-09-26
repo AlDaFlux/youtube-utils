@@ -36,7 +36,14 @@ class ServiceApiYoutube
 
     public function __construct(ParameterBagInterface $params)
     {
-        $this->apiKey = $params->get("youtube_api_key");
+        if ($params->has("youtube_api_key"))
+        {
+            $this->apiKey = $params->get("youtube_api_key");
+        }
+        else
+        {
+            self::$errorlogs[]="youtube_api_key is not set";
+        }
     }
     
         
@@ -178,7 +185,6 @@ class ServiceApiYoutube
                 {
                     self::$errorlogs[]=$result->error;
                 }
-                dump(self::$errorlogs);
                 
                 
                 

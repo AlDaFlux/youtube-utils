@@ -22,12 +22,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
 
-        $treeBuilder = new TreeBuilder('youtube_utils');
+        $treeBuilder = new TreeBuilder('aldaflux_youtube_utils');
         if (Kernel::VERSION_ID >= 40200) 
         {
             $rootNode = $treeBuilder->getRootNode();
         } else {
-            $rootNode = $treeBuilder->root('youtube_utils');
+            $rootNode = $treeBuilder->root('aldaflux_youtube_utils');
         }        
 
         $rootNode->children()->scalarNode( 'youtube_api_key' )->end();
