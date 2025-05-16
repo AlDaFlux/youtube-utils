@@ -1,0 +1,162 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+{% import _self as helper %}
+
+
+{% block toolbar %}
+    {% set icon %}
+  
+        {%  if collector.NbErrorLogs %}
+            {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeError.html.twig') %}
+            <span class="sf-toolbar-value">{{ collector.NbErrorLogs }}</span>
+        {%  elseif collector.NbLogs %}
+            {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeActive.html.twig') %}
+            <span class="sf-toolbar-value">{{ collector.NbLogs }}</span>
+       {%  else %}
+            {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeInActive.html.twig') %}
+       {%  endif %}
+        
+    {% endset %}
+    
+    
+
+    {% set text %}
+        {# this is the content displayed when hovering the mouse over
+           the toolbar panel #}
+        <div class="sf-toolbar-info-piece">
+            <b>Logs</b>
+            <span>{{ collector.NbLogs }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Error Logs</b>
+            <span class="sf-toolbar-status sf-toolbar-status-red">{{ collector.NbErrorLogs }}</span>
+        </div>
+        
+    {% endset %}
+
+    {# the 'link' value set to 'false' means that this panel doesn't
+       show a section in the web profiler #}
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig') }}
+{% endblock %}
+
+
+
+{% block menu %}
+    {% set profiler_markup_version = profiler_markup_version|default(1) %}
+
+    <span class="label ">
+        
+        <span class="icon">
+    {% include('@AldafluxYoutubeUtils/Collector/icons/YoutubeInActive.html.twig') %}
+        </span>
+        <strong>Youtube</strong>
+            <span class="count">
+                <span>{{ collector.NbLogs }}</span>
+            </span>
+        
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% import _self as helper %}
+
+    
+    {% set profiler_markup_version = profiler_markup_version|default(1) %}
+
+    {% if profiler_markup_version == 1 %}
+        <style>
+            h3 { margin-top: 2em; }
+            h3 span { color: #999; font-weight: normal; }
+            h3 small { color: #999; }
+            h4 { font-size: 14px; font-weight: bold; }
+            .card { background: #F5F5F5; margin: .5em 0 1em; padding: .5em; }
+            .card .label { display: block; font-size: 13px; font-weight: bold; margin-bottom: .5em; }
+            .card .card-block { margin-bottom: 1em; }
+        </style>
+    {% endif %}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2>Youtube API</h2>
+    
+   
+
+      {%  if collector.NbLogs %} 
+                <table>
+          <thead>
+            <tr>
+                <th>type</th>
+                <th>Message</th> 
+            </tr>
+    </thead>
+    <tbody>
+ {% for log in collector.errorlogs %}
+                <tr class="">
+                   <td class="font-normal text-muted nowrap">{{log.code}}</td>
+                   <td class="font-normal text-muted nowrap">{{ log.message}}</td>
+                </tr>
+         {% endfor  %}
+        
+         </tbody>
+    </table>
+      {%  endif %} 
+          
+
+
+      {%  if collector.NbLogs %} 
+         <table>
+          <thead>
+            <tr>
+                <th>type</th>
+                <th>url</th> 
+            </tr>
+    </thead>
+    <tbody>
+           {% set discr = random() %}
+ {% for log in collector.logs %}
+                <tr class="">
+                   <td class="font-normal text-muted nowrap">{{ log.type }}</td>
+                <td class="font-normal text-muted nowrap">
+                <a class="btn btn-link text-small sf-toggle" data-toggle-selector="#ytt_{{ loop.index0 }}" data-toggle-alt-content="{{ log.url }}">Show JSON</a>
+                    <div  id="ytt_{{ loop.index0 }}" class="context sf-toggle-content sf-toggle-hidden" >
+                            {{ dump(log.result) }}
+                    </div>
+                </td>
+                </tr>
+         {% endfor  %}
+        </tbody>
+    </table>
+
+      {%  else %}
+          
+          <div class="empty">
+            <p>There are no API call</p>
+         </div>
+          
+          
+      {%  endif %}
+                    
+      {%  if collector.NbErrorLogs %}
+            <div class='status-error'>
+        {% for log in collector.errorLogs %}
+            <li>{{ dump(log)}}</li>
+        {% endfor  %}
+            </div>
+      {%  endif %}
+  
+      
+              
+
+{% endblock %}
+
+
+ 

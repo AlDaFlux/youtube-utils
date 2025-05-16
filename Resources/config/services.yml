@@ -1,0 +1,25 @@
+services:
+    youtube-utils.api_youtube_service:
+        class: Aldaflux\YoutubeUtilsBundle\Utils\ApiYoutubeService
+        public: true
+        autowire: true
+        autoconfigure: true
+    Aldaflux\YoutubeUtilsBundle\Utils\ApiYoutubeService: '@youtube-utils.api_youtube_service'        
+        
+    youtube-utils.service_api_youtube:
+        class: Aldaflux\YoutubeUtilsBundle\Utils\ServiceApiYoutube
+        public: true
+        autowire: true
+        autoconfigure: true
+    Aldaflux\YoutubeUtilsBundle\Utils\ServiceApiYoutube: '@youtube-utils.service_api_youtube'        
+        
+
+    Aldaflux\YoutubeUtilsBundle\DataCollector\RequestCollector:
+        arguments: ["@youtube-utils.service_api_youtube","@service_container"]
+        tags:
+            -
+                name:     data_collector
+                template: '@AldafluxYoutubeUtils/Collector/collector.html.twig'
+                # must match the value returned by the getName() method
+                id:       'aldaflux_youtube_utils.request_collector'
+        public: false
